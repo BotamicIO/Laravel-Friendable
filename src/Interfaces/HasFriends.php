@@ -1,10 +1,10 @@
 <?php
 
-namespace BrianFaust\Friendable\Contracts;
+namespace BrianFaust\Friendable\Interfaces;
 
 use Illuminate\Database\Eloquent\Model;
 
-interface Friendable
+interface HasFriends
 {
     /**
      * @return mixed

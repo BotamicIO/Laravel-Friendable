@@ -1,6 +1,6 @@
 <?php
 
-namespace BrianFaust\Friendable\Models;
+namespace BrianFaust\Friendable;
 
 use Illuminate\Database\Eloquent\Model;
 

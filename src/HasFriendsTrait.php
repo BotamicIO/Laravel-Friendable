@@ -2,11 +2,11 @@
 
 namespace BrianFaust\Friendable\Traits;
 
-use BrianFaust\Friendable\Models\Friend;
+use BrianFaust\Friendable\Friend;
 use BrianFaust\Friendable\Status;
 use Illuminate\Database\Eloquent\Model;
 
-trait Friendable
+trait HasFriendsTrait
 {
     /**
      * @return mixed
@@ -287,7 +287,7 @@ trait Friendable
 
         foreach ($query->get() as $friendship) {
             $friendships[] = $this->getFriendship($this->find(
-                ($friendship->sender_id == $this->id)  ? $friendship->recipient_id : $friendship->sender_id
+                ($friendship->sender_id == $this->id) ? $friendship->recipient_id : $friendship->sender_id
             ));
         }
 

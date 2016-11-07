@@ -2,7 +2,9 @@
 
 namespace BrianFaust\Friendable;
 
-class ServiceProvider extends \BrianFaust\ServiceProvider\ServiceProvider
+use BrianFaust\ServiceProvider\ServiceProvider;
+
+class FriendableServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

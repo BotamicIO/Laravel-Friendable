@@ -30,13 +30,13 @@ php artisan vendor:publish --provider="BrianFaust\Friendable\ServiceProvider" &&
 
 namespace App;
 
-use BrianFaust\Friendable\Contracts\Friendable;
-use BrianFaust\Friendable\Traits\Friendable as FriendableTrait;
+use BrianFaust\Friendable\HasFriendsTrait;
+use BrianFaust\Friendable\Interfaces\HasFriends;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model implements Friendable
+class User extends Model implements HasFriends
 {
-    use FriendableTrait;
+    use HasFriendsTrait;
 }
 ```
 
