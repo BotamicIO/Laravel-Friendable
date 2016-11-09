@@ -1,6 +1,6 @@
 <?php
 
-namespace BrianFaust\Friendable\Traits;
+namespace BrianFaust\Friendable;
 
 use BrianFaust\Friendable\Friend;
 use BrianFaust\Friendable\Status;
