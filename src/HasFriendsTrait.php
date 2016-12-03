@@ -1,9 +1,16 @@
 <?php
 
+/*
+ * This file is part of Laravel Friendable.
+ *
+ * (c) Brian Faust <hello@brianfaust.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BrianFaust\Friendable;
 
-use BrianFaust\Friendable\Friend;
-use BrianFaust\Friendable\Status;
 use Illuminate\Database\Eloquent\Model;
 
 trait HasFriendsTrait
@@ -28,9 +35,9 @@ trait HasFriendsTrait
         }
 
         $friendship = (new Friend())->fill([
-            'recipient_id' => $recipient->id,
+            'recipient_id'   => $recipient->id,
             'recipient_type' => get_class($recipient),
-            'status' => Status::PENDING,
+            'status'         => Status::PENDING,
         ]);
 
         $this->friends()->save($friendship);
