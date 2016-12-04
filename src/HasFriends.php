@@ -24,12 +24,18 @@ namespace BrianFaust\Friendable;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+
 trait HasFriends
 {
     /**
      * @return mixed
      */
-    public function friends()
+    public function friends(): MorphMany
     {
         return $this->morphMany(Friend::class, 'sender');
     }
@@ -39,33 +45,31 @@ trait HasFriends
      *
      * @return $this|void
      */
-    public function befriend(Model $recipient)
+    public function befriend(Model $recipient): bool
     {
         if ($this->isFriendsWith($recipient)) {
-            return;
+            return true;
         }
 
-        $friendship = (new Friend())->fill([
+        $friendship = (new Friend())->forceFill([
             'recipient_id'   => $recipient->id,
             'recipient_type' => get_class($recipient),
             'status'         => Status::PENDING,
         ]);
 
-        $this->friends()->save($friendship);
-
-        return $friendship;
+        return (bool) $this->friends()->save($friendship);
     }
 
     /**
      * @param Model $recipient
      */
-    public function unfriend(Model $recipient)
+    public function unfriend(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
             return;
         }
 
-        return $this->findFriendship($recipient)->delete();
+        return (bool) $this->findFriendship($recipient)->delete();
     }
 
     /**
@@ -74,7 +78,7 @@ trait HasFriends
      *
      * @return mixed
      */
-    public function isFriendsWith(Model $recipient, $status = null)
+    public function isFriendsWith(Model $recipient, $status = null): bool
     {
         $exists = $this->findFriendship($recipient);
 
@@ -82,19 +86,19 @@ trait HasFriends
             $exists = $exists->where('status', $status);
         }
 
-        return $exists->count();
+        return (bool) $exists->count();
     }
 
     /**
      * @param Model $recipient
      */
-    public function acceptFriendRequest(Model $recipient)
+    public function acceptFriendRequest(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
             return;
         }
 
-        return $this->findFriendship($recipient)->update([
+        return (bool) $this->findFriendship($recipient)->update([
             'status' => Status::ACCEPTED,
         ]);
     }
@@ -102,13 +106,13 @@ trait HasFriends
     /**
      * @param Model $recipient
      */
-    public function denyFriendRequest(Model $recipient)
+    public function denyFriendRequest(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
             return;
         }
 
-        return $this->findFriendship($recipient)->update([
+        return (bool) $this->findFriendship($recipient)->update([
             'status' => Status::DENIED,
         ]);
     }
@@ -116,13 +120,13 @@ trait HasFriends
     /**
      * @param Model $recipient
      */
-    public function blockFriendRequest(Model $recipient)
+    public function blockFriendRequest(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
             return;
         }
 
-        return $this->findFriendship($recipient)->update([
+        return (bool) $this->findFriendship($recipient)->update([
             'status' => Status::BLOCKED,
         ]);
     }
@@ -130,13 +134,13 @@ trait HasFriends
     /**
      * @param Model $recipient
      */
-    public function unblockFriendRequest(Model $recipient)
+    public function unblockFriendRequest(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
             return;
         }
 
-        return $this->findFriendship($recipient)->update([
+        return (bool) $this->findFriendship($recipient)->update([
             'status' => Status::PENDING,
         ]);
     }
@@ -146,7 +150,7 @@ trait HasFriends
      *
      * @return mixed
      */
-    public function getFriendship($recipient)
+    public function getFriendship($recipient): Friend
     {
         return $this->findFriendship($recipient)->first();
     }
@@ -157,7 +161,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getAllFriendships($limit = null, $offset = null)
+    public function getAllFriendships($limit = null, $offset = null): Collection
     {
         return $this->findFriendshipsByStatus(null, $limit, $offset);
     }
@@ -168,7 +172,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getPendingFriendships($limit = null, $offset = 0)
+    public function getPendingFriendships($limit = null, $offset = 0): Collection
     {
         return $this->findFriendshipsByStatus(Status::PENDING, $limit, $offset);
     }
@@ -179,7 +183,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getAcceptedFriendships($limit = null, $offset = 0)
+    public function getAcceptedFriendships($limit = null, $offset = 0): Collection
     {
         return $this->findFriendshipsByStatus(Status::ACCEPTED, $limit, $offset);
     }
@@ -190,7 +194,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getDeniedFriendships($limit = null, $offset = 0)
+    public function getDeniedFriendships($limit = null, $offset = 0): Collection
     {
         return $this->findFriendshipsByStatus(Status::DENIED, $limit, $offset);
     }
@@ -201,7 +205,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getBlockedFriendships($limit = null, $offset = 0)
+    public function getBlockedFriendships($limit = null, $offset = 0): Collection
     {
         return $this->findFriendshipsByStatus(Status::BLOCKED, $limit, $offset);
     }
@@ -211,7 +215,7 @@ trait HasFriends
      *
      * @return bool
      */
-    public function hasBlocked(Model $recipient)
+    public function hasBlocked(Model $recipient): bool
     {
         return $this->getFriendship($recipient)->status === Status::BLOCKED;
     }
@@ -221,7 +225,7 @@ trait HasFriends
      *
      * @return bool
      */
-    public function isBlockedBy(Model $recipient)
+    public function isBlockedBy(Model $recipient): bool
     {
         $friendship = Friend::where(function ($query) use ($recipient) {
             $query->where('sender_id', $this->id);
@@ -237,7 +241,7 @@ trait HasFriends
     /**
      * @return mixed
      */
-    public function getFriendRequests()
+    public function getFriendRequests(): Collection
     {
         return Friend::where(function ($query) {
             $query->where('recipient_id', $this->id);
@@ -251,7 +255,7 @@ trait HasFriends
      *
      * @return mixed
      */
-    private function findFriendship(Model $recipient)
+    private function findFriendship(Model $recipient): Collection
     {
         return Friend::where(function ($query) use ($recipient) {
             $query->where('sender_id', $this->id);
@@ -275,7 +279,7 @@ trait HasFriends
      *
      * @return array
      */
-    private function findFriendshipsByStatus($status, $limit, $offset)
+    private function findFriendshipsByStatus($status, $limit, $offset): array
     {
         $friendships = [];
 
