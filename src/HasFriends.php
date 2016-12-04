@@ -24,7 +24,7 @@ namespace BrianFaust\Friendable;
 
 use Illuminate\Database\Eloquent\Model;
 
-trait HasFriendsTrait
+trait HasFriends
 {
     /**
      * @return mixed

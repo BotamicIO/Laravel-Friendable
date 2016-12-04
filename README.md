@@ -28,13 +28,12 @@ php artisan vendor:publish --provider="BrianFaust\Friendable\FriendableServicePr
 
 namespace App;
 
-use BrianFaust\Friendable\HasFriendsTrait;
-use BrianFaust\Friendable\Interfaces\HasFriends;
+use BrianFaust\Friendable\HasFriends;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model implements HasFriends
+class User extends Model
 {
-    use HasFriendsTrait;
+    use HasFriends;
 }
 ```
 
