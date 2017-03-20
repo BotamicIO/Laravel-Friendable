@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace BrianFaust\Friendable;
 
-use BrianFaust\ServiceProvider\ServiceProvider;
+use BrianFaust\ServiceProvider\AbstractServiceProvider;
 
-class FriendableServiceProvider extends ServiceProvider
+class FriendableServiceProvider extends AbstractServiceProvider
 {
     /**
      * Bootstrap the application services.
