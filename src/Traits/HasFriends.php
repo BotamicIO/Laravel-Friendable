@@ -11,8 +11,8 @@
 
 namespace BrianFaust\Friendable\Traits;
 
-use BrianFaust\Friendable\Models\Friend;
 use BrianFaust\Friendable\Enums\Status;
+use BrianFaust\Friendable\Models\Friend;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -38,9 +38,9 @@ trait HasFriends
         }
 
         $friendship = (new Friend())->forceFill([
-            'recipient_id' => $recipient->id,
+            'recipient_id'   => $recipient->id,
             'recipient_type' => get_class($recipient),
-            'status' => Status::PENDING,
+            'status'         => Status::PENDING,
         ]);
 
         return (bool) $this->friends()->save($friendship);
