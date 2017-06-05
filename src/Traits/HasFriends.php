@@ -1,8 +1,5 @@
 <?php
 
-
-declare(strict_types=1);
-
 /*
  * This file is part of Laravel Friendable.
  *
@@ -12,8 +9,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace BrianFaust\Friendable;
+namespace BrianFaust\Friendable\Traits;
 
+use BrianFaust\Friendable\Models\Friend;
+use BrianFaust\Friendable\Enums\Status;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -39,9 +38,9 @@ trait HasFriends
         }
 
         $friendship = (new Friend())->forceFill([
-            'recipient_id'   => $recipient->id,
+            'recipient_id' => $recipient->id,
             'recipient_type' => get_class($recipient),
-            'status'         => Status::PENDING,
+            'status' => Status::PENDING,
         ]);
 
         return (bool) $this->friends()->save($friendship);
