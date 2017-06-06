@@ -38,9 +38,9 @@ trait HasFriends
         }
 
         $friendship = (new Friend())->forceFill([
-            'recipient_id'   => $recipient->id,
+            'recipient_id' => $recipient->id,
             'recipient_type' => get_class($recipient),
-            'status'         => Status::PENDING,
+            'status' => Status::PENDING,
         ]);
 
         return (bool) $this->friends()->save($friendship);
