@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace BrianFaust\Friendable\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
 use BrianFaust\Friendable\Enums\Status;
 use Illuminate\Database\Eloquent\Model;
 use BrianFaust\Friendable\Models\Friend;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait HasFriends
