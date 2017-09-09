@@ -63,7 +63,6 @@ trait HasFriends
 
     /**
      * @param Model $recipient
-     *
      * @param null  $status
      *
      * @return mixed
