@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace BrianFaust\Friendable;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Builder;
 
 trait HasFriends
 {
@@ -29,6 +29,7 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
      * @return bool
      */
     public function befriend(Model $recipient): bool
@@ -48,6 +49,7 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
      * @return bool
      */
     public function unfriend(Model $recipient): bool
@@ -61,6 +63,7 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
      * @param null  $status
      *
      * @return mixed
@@ -78,6 +81,7 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
      * @return bool
      */
     public function acceptFriendRequest(Model $recipient): bool
@@ -93,6 +97,7 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
      * @return bool
      */
     public function denyFriendRequest(Model $recipient): bool
@@ -108,6 +113,7 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
      * @return bool
      */
     public function blockFriendRequest(Model $recipient): bool
@@ -123,6 +129,7 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
      * @return bool
      */
     public function unblockFriendRequest(Model $recipient): bool
