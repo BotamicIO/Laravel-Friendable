@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace BrianFaust\Friendable;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -29,7 +30,7 @@ trait HasFriends
     /**
      * @param Model $recipient
      *
-     * @return $this|void
+     * @return bool
      */
     public function befriend(Model $recipient): bool
     {
@@ -48,11 +49,13 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
+     * @return bool
      */
     public function unfriend(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
-            return;
+            return false;
         }
 
         return (bool) $this->findFriendship($recipient)->delete();
@@ -77,11 +80,13 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
+     * @return bool
      */
     public function acceptFriendRequest(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
-            return;
+            return false;
         }
 
         return (bool) $this->findFriendship($recipient)->update([
@@ -91,11 +96,13 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
+     * @return bool
      */
     public function denyFriendRequest(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
-            return;
+            return false;
         }
 
         return (bool) $this->findFriendship($recipient)->update([
@@ -105,11 +112,13 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
+     * @return bool
      */
     public function blockFriendRequest(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
-            return;
+            return false;
         }
 
         return (bool) $this->findFriendship($recipient)->update([
@@ -119,11 +128,13 @@ trait HasFriends
 
     /**
      * @param Model $recipient
+     *
+     * @return bool
      */
     public function unblockFriendRequest(Model $recipient): bool
     {
         if (!$this->isFriendsWith($recipient)) {
-            return;
+            return false;
         }
 
         return (bool) $this->findFriendship($recipient)->update([
@@ -147,7 +158,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getAllFriendships($limit = null, $offset = null): Collection
+    public function getAllFriendships($limit = null, $offset = null): array
     {
         return $this->findFriendshipsByStatus(null, $limit, $offset);
     }
@@ -158,7 +169,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getPendingFriendships($limit = null, $offset = 0): Collection
+    public function getPendingFriendships($limit = null, $offset = 0): array
     {
         return $this->findFriendshipsByStatus(Status::PENDING, $limit, $offset);
     }
@@ -169,7 +180,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getAcceptedFriendships($limit = null, $offset = 0): Collection
+    public function getAcceptedFriendships($limit = null, $offset = 0): array
     {
         return $this->findFriendshipsByStatus(Status::ACCEPTED, $limit, $offset);
     }
@@ -180,7 +191,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getDeniedFriendships($limit = null, $offset = 0): Collection
+    public function getDeniedFriendships($limit = null, $offset = 0): array
     {
         return $this->findFriendshipsByStatus(Status::DENIED, $limit, $offset);
     }
@@ -191,7 +202,7 @@ trait HasFriends
      *
      * @return array
      */
-    public function getBlockedFriendships($limit = null, $offset = 0): Collection
+    public function getBlockedFriendships($limit = null, $offset = 0): array
     {
         return $this->findFriendshipsByStatus(Status::BLOCKED, $limit, $offset);
     }
@@ -241,7 +252,7 @@ trait HasFriends
      *
      * @return mixed
      */
-    private function findFriendship(Model $recipient): Collection
+    private function findFriendship(Model $recipient): Builder
     {
         return Friend::where(function ($query) use ($recipient) {
             $query->where('sender_id', $this->id);
