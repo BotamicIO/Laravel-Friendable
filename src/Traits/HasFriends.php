@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace BrianFaust\Friendable\Traits;
 
 use BrianFaust\Friendable\Enums\Status;
-use Illuminate\Database\Eloquent\Model;
 use BrianFaust\Friendable\Models\Friend;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait HasFriends
@@ -56,7 +56,7 @@ trait HasFriends
      */
     public function unfriend(Model $recipient): bool
     {
-        if (! $this->isFriendsWith($recipient)) {
+        if (!$this->isFriendsWith($recipient)) {
             return false;
         }
 
@@ -73,7 +73,7 @@ trait HasFriends
     {
         $exists = $this->findFriendship($recipient);
 
-        if (! empty($status)) {
+        if (!empty($status)) {
             $exists = $exists->where('status', $status);
         }
 
@@ -87,7 +87,7 @@ trait HasFriends
      */
     public function acceptFriendRequest(Model $recipient): bool
     {
-        if (! $this->isFriendsWith($recipient)) {
+        if (!$this->isFriendsWith($recipient)) {
             return false;
         }
 
@@ -103,7 +103,7 @@ trait HasFriends
      */
     public function denyFriendRequest(Model $recipient): bool
     {
-        if (! $this->isFriendsWith($recipient)) {
+        if (!$this->isFriendsWith($recipient)) {
             return false;
         }
 
@@ -119,7 +119,7 @@ trait HasFriends
      */
     public function blockFriendRequest(Model $recipient): bool
     {
-        if (! $this->isFriendsWith($recipient)) {
+        if (!$this->isFriendsWith($recipient)) {
             return false;
         }
 
@@ -135,7 +135,7 @@ trait HasFriends
      */
     public function unblockFriendRequest(Model $recipient): bool
     {
-        if (! $this->isFriendsWith($recipient)) {
+        if (!$this->isFriendsWith($recipient)) {
             return false;
         }
 
@@ -286,23 +286,23 @@ trait HasFriends
             $query->where('sender_id', $this->id);
             $query->where('sender_type', get_class($this));
 
-            if (! empty($status)) {
+            if (!empty($status)) {
                 $query->where('status', $status);
             }
         })->orWhere(function ($query) use ($status) {
             $query->where('recipient_id', $this->id);
             $query->where('recipient_type', get_class($this));
 
-            if (! empty($status)) {
+            if (!empty($status)) {
                 $query->where('status', $status);
             }
         });
 
-        if (! empty($limit)) {
+        if (!empty($limit)) {
             $query->take($limit);
         }
 
-        if (! empty($offset)) {
+        if (!empty($offset)) {
             $query->skip($offset);
         }
 
