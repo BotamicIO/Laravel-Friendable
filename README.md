@@ -1,22 +1,22 @@
 # Laravel Friendable
 
-[![Build Status](https://img.shields.io/travis/faustbrian/Laravel-Friendable/master.svg?style=flat-square)](https://travis-ci.org/faustbrian/Laravel-Friendable)
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/faustbrian/laravel-friendable.svg?style=flat-square)]()
-[![Latest Version](https://img.shields.io/github/release/faustbrian/Laravel-Friendable.svg?style=flat-square)](https://github.com/faustbrian/Laravel-Friendable/releases)
-[![License](https://img.shields.io/packagist/l/faustbrian/Laravel-Friendable.svg?style=flat-square)](https://packagist.org/packages/faustbrian/Laravel-Friendable)
+[![Build Status](https://img.shields.io/travis/artisanry/Friendable/master.svg?style=flat-square)](https://travis-ci.org/artisanry/Friendable)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/artisanry/friendable.svg?style=flat-square)]()
+[![Latest Version](https://img.shields.io/github/release/artisanry/Friendable.svg?style=flat-square)](https://github.com/artisanry/Friendable/releases)
+[![License](https://img.shields.io/packagist/l/artisanry/Friendable.svg?style=flat-square)](https://packagist.org/packages/artisanry/Friendable)
 
 ## Installation
 
 Require this package, with [Composer](https://getcomposer.org/), in the root directory of your project.
 
 ``` bash
-$ composer require faustbrian/laravel-friendable
+$ composer require artisanry/friendable
 ```
 
 To get started, you'll need to publish the vendor assets and migrate:
 
 ```
-php artisan vendor:publish --provider="BrianFaust\Friendable\FriendableServiceProvider" && php artisan migrate
+php artisan vendor:publish --provider="Artisanry\Friendable\FriendableServiceProvider" && php artisan migrate
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ php artisan vendor:publish --provider="BrianFaust\Friendable\FriendableServicePr
 
 namespace App;
 
-use BrianFaust\Friendable\HasFriends;
+use Artisanry\Friendable\HasFriends;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
@@ -126,7 +126,7 @@ $ phpunit
 
 ## Security
 
-If you discover a security vulnerability within this package, please send an e-mail to hello@brianfaust.me. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within this package, please send an e-mail to hello@basecode.sh. All security vulnerabilities will be promptly addressed.
 
 ## Credits
 
@@ -135,4 +135,4 @@ If you discover a security vulnerability within this package, please send an e-m
 
 ## License
 
-[MIT](LICENSE) © [Brian Faust](https://brianfaust.me)
+[MIT](LICENSE) © [Brian Faust](https://basecode.sh)

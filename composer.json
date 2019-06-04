@@ -1,12 +1,12 @@
 {
-    "name": "faustbrian/laravel-friendable",
+    "name": "artisanry/friendable",
     "description": "Friendable Polymorphic Eloquent Models for Laravel 5",
-    "keywords": ["laravel", "framework", "Laravel-Friendable", "Laravel Friendable", "Brian Faust", "faustbrian"],
+    "keywords": ["laravel", "framework", "Laravel-Friendable", "Laravel Friendable"],
     "license": "MIT",
     "authors": [{
         "name": "Brian Faust",
-        "email": "hello@brianfaust.me",
-        "homepage": "https://brianfaust.me"
+        "email": "hello@basecode.sh",
+        "homepage": "https://basecode.sh"
     }],
     "require": {
         "php": "^7.1",
@@ -20,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "BrianFaust\\Friendable\\": "src/"
+            "Artisanry\\Friendable\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BrianFaust\\Tests\\Friendable\\": "tests"
+            "Artisanry\\Tests\\Friendable\\": "tests"
         }
     },
     "config": {
@@ -38,10 +38,10 @@
         },
         "laravel": {
             "providers": [
-                "BrianFaust\\Debugbar\\DebugbarServiceProvider"
+                "Artisanry\\Debugbar\\DebugbarServiceProvider"
             ],
             "aliases": {
-                "Debugbar": "BrianFaust\\Debugbar\\Facades\\Debugbar"
+                "Debugbar": "Artisanry\\Debugbar\\Facades\\Debugbar"
             }
         }
     },

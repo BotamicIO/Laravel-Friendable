@@ -5,16 +5,16 @@ declare(strict_types=1);
 /*
  * This file is part of Laravel Friendable.
  *
- * (c) Brian Faust <hello@brianfaust.de>
+ * (c) Brian Faust <hello@basecode.sh>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace BrianFaust\Friendable\Traits;
+namespace Artisanry\Friendable\Traits;
 
-use BrianFaust\Friendable\Enums\Status;
-use BrianFaust\Friendable\Models\Friend;
+use Artisanry\Friendable\Enums\Status;
+use Artisanry\Friendable\Models\Friend;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
