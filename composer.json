@@ -7,7 +7,7 @@
         "Laravel-Friendable",
         "Laravel Friendable"
     ],
-    "license": "MIT",
+    "license": "MPL-2.0",
     "authors": [
         {
             "name": "Brian Faust",
