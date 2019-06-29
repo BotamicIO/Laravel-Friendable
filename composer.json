@@ -45,11 +45,8 @@
         },
         "laravel": {
             "providers": [
-                "Artisanry\\Debugbar\\DebugbarServiceProvider"
-            ],
-            "aliases": {
-                "Debugbar": "Artisanry\\Debugbar\\Facades\\Debugbar"
-            }
+                "Artisanry\\Friendable\\FriendableServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
